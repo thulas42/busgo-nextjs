@@ -131,13 +131,12 @@ This script will:
 
 ## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+This application is deployed on Vercel and can be accessed at [https://busgo.vercel.app](https://busgo.vercel.app) (replace with your actual URL).
 
-```bash
-npm run build
-# or
-yarn build
-```
+The deployment process uses Vercel's continuous integration:
+- Main branch is automatically deployed to production
+- Pull requests generate preview deployments
+- Environment variables are securely managed in the Vercel dashboard
 
 ## Contributing
 
