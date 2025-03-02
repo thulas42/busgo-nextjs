@@ -44,7 +44,7 @@ const seedCollection = async (collectionName, data) => {
   const collectionRef = collection(db, collectionName);
   
   const addPromises = data.map(item => addDoc(collectionRef, item));
-  await Promise.all(addPromises);
+  await Promise.all(addPromises); 
   console.log(`Added ${data.length} documents to ${collectionName}`);
 };
 
@@ -79,7 +79,12 @@ const seedDatabase = async () => {
     await seedCollection('reviews', reviews);
     await seedCollection('features', features);
     await seedCollection('destinations', destinations);
-    await seedCollection('whyChooseUs', whyChooseUs);
+    await seedCollection('whyChooseUs', whyChooseUs.map(item => {
+      if (typeof item === 'object' && item.icon && item.text) {
+        return item;
+      }
+      return { text: item, icon: 'default-icon' };
+    }));
     await seedCollection('chatFAQs', chatFAQs.map(faq => ({ text: faq })));
     
     // Sample deals data
