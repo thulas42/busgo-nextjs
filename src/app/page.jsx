@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
+import SimpleLocationSelect from '../components/SimpleLocationSelect';
 import { getAllRoutes, getPopularRoutes, searchRoutes } from '../services/routeService';
 import { createBooking } from '../services/bookingService';
 import { getReviews } from '../services/reviewService';
@@ -97,7 +98,6 @@ export default function Home() {
         setWhyChooseUsData(whyChooseUs);
         setChatFAQsData(chatFAQs);
       } catch (error) {
-        console.error("Error loading data:", error);
         setError("Failed to load data. Please refresh the page.");
       } finally {
         setLoading(false);
@@ -126,7 +126,6 @@ export default function Home() {
       
       setSearchResults(results);
     } catch (error) {
-      console.error("Search error:", error);
       setError("Failed to search routes. Please try again.");
     } finally {
       setIsLoading(false);
@@ -147,9 +146,22 @@ export default function Home() {
       const { id, reference } = await createBooking(bookingData);
       alert(`Booking confirmed! Reference: ${reference}`);
     } catch (error) {
-      console.error("Booking error:", error);
       setError("Booking failed. Please try again.");
     }
+  };
+
+  const handleDepartureSelect = (place) => {
+    setSearchParams({
+      ...searchParams,
+      origin: place.address
+    });
+  };
+  
+  const handleDestinationSelect = (place) => {
+    setSearchParams({
+      ...searchParams,
+      destination: place.address
+    });
   };
 
   const SkeletonRoute = () => (
@@ -186,26 +198,17 @@ export default function Home() {
       <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl p-8 mb-12 transform hover:scale-[1.02] transition-all duration-300">
         <form onSubmit={handleSearch} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              type="text"
+            <SimpleLocationSelect
+              onPlaceSelect={handleDepartureSelect}
               placeholder="Leaving from..."
+              initialValue={searchParams.origin}
               className="w-full p-3 border rounded"
-              value={searchParams.origin}
-              onChange={(e) =>
-                setSearchParams({ ...searchParams, origin: e.target.value })
-              }
             />
-            <input
-              type="text"
+            <SimpleLocationSelect
+              onPlaceSelect={handleDestinationSelect}
               placeholder="Going to..."
+              initialValue={searchParams.destination}
               className="w-full p-3 border rounded"
-              value={searchParams.destination}
-              onChange={(e) =>
-                setSearchParams({
-                  ...searchParams,
-                  destination: e.target.value,
-                })
-              }
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -343,9 +346,11 @@ export default function Home() {
       )}
 
       <div className="my-12">
-        <h2 className="text-3xl font-bold text-[#4F46E5] mb-8 text-center">
-          Why Choose BusGo
-        </h2>
+        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 py-3 rounded-lg mb-8">
+          <h2 className="text-3xl font-bold text-white mb-8 text-center border-b-2 border-white/30 pb-2 inline-block mx-auto">
+            Why Choose BusGo
+          </h2>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {whyChooseUsData.map((item, index) => (
             <div key={index} className="bg-gradient-to-br from-[#4F46E5] to-[#10B981] p-8 rounded-xl shadow-xl text-center text-white transform hover:scale-105 transition-all duration-300">
@@ -432,7 +437,7 @@ export default function Home() {
       </div>
 
       <div className="mt-24 bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-8">
-        <h2 className="text-3xl font-bold text-[#4F46E5] mb-8 text-center">
+        <h2 className="text-3xl font-bold text-white mb-8 text-center">
           Popular Destinations
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -1,4 +1,4 @@
-import { db } from '../lib/firebase';
+import { db, useMockData } from '../lib/firebase';
 import { 
   collection, 
   getDocs, 
@@ -11,6 +11,7 @@ import {
   deleteDoc,
   serverTimestamp 
 } from 'firebase/firestore';
+import { routes, popularRoutes } from '../data';
 
 // Collection references
 const routesCollection = collection(db, 'routes');
@@ -18,6 +19,10 @@ const popularRoutesCollection = collection(db, 'popularRoutes');
 
 // Get all routes
 export const getAllRoutes = async () => {
+  if (useMockData) {
+    return routes;
+  }
+  
   const snapshot = await getDocs(routesCollection);
   return snapshot.docs.map(doc => ({
     id: doc.id,

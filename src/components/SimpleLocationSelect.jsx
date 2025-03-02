@@ -133,7 +133,7 @@ export default function SimpleLocationSelect({
           }}
           onFocus={() => setShowSuggestions(true)}
           placeholder={placeholder}
-          className={`w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${className}`}
+          className={className || "w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"}
           autoComplete="off"
         />
         
