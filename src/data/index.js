@@ -1,9 +1,9 @@
-// Central export file for all data
-import { routes, popularRoutes } from './routes';
-import { stations, stationAmenities } from './stations';
-import { travelInfo, travelFAQs } from './travelInfo';
-import { helpMethods, helpFAQs } from './helpCenter';
-import { reviews, features, destinations, whyChooseUs, chatFAQs } from './homeData';
+// Export all data from various data files
+import { routes, popularRoutes } from './routes.js';
+import { stations, stationAmenities } from './stations.js';
+import { travelInfo, travelFAQs } from './travelInfo.js';
+import { helpMethods, helpFAQs } from './helpCenter.js';
+import { reviews, features, destinations, whyChooseUs, chatFAQs } from './homeData.js';
 
 export {
   routes,

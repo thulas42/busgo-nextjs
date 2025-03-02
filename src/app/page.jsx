@@ -3,6 +3,14 @@ import React, { useState, useEffect } from "react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
+import { getAllRoutes, getPopularRoutes, searchRoutes } from '../services/routeService';
+import { createBooking } from '../services/bookingService';
+import { getReviews } from '../services/reviewService';
+import { getFeatures } from '../services/featureService';
+import { getDestinations } from '../services/destinationService';
+import { getWhyChooseUs } from '../services/whyChooseUsService';
+import { getChatFAQs } from '../services/chatService';
+import { useRouter as useNextRouter } from 'next/navigation';
 import { 
   routes, 
   popularRoutes, 
@@ -27,6 +35,12 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [routesData, setRoutesData] = useState([]);
+  const [popularRoutesData, setPopularRoutesData] = useState([]);
+  const [reviewsData, setReviewsData] = useState([]);
+  const [featuresData, setFeaturesData] = useState([]);
+  const [destinationsData, setDestinationsData] = useState([]);
+  const [whyChooseUsData, setWhyChooseUsData] = useState([]);
+  const [chatFAQsData, setChatFAQsData] = useState([]);
   const [filters, setFilters] = useState({
     priceRange: [0, 1000],
     departureTime: "any",
@@ -50,53 +64,92 @@ export default function Home() {
     setIsMenuOpen(false);
   };
 
-  const fetchRoutes = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch("/api/routes/list", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          origin: searchParams.origin,
-          destination: searchParams.destination,
-          date: searchParams.departureDate,
-          passengers: searchParams.passengers,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setRoutesData(data.routes);
-      setSearchResults(data.routes);
-    } catch (err) {
-      setError("Failed to load routes. Please try again.");
-      console.error(err);
-      // Use mock data as fallback
-      setRoutesData(routes);
-      setSearchResults(routes);
-    } finally {
-      setLoading(false);
-      setIsLoading(false);
-    }
-  };
-
+  // Load data from Firebase
   useEffect(() => {
-    fetchRoutes();
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        
+        // Load all data in parallel
+        const [
+          routes,
+          popular,
+          reviews,
+          features,
+          destinations,
+          whyChooseUs,
+          chatFAQs
+        ] = await Promise.all([
+          getAllRoutes(),
+          getPopularRoutes(),
+          getReviews(),
+          getFeatures(),
+          getDestinations(),
+          getWhyChooseUs(),
+          getChatFAQs()
+        ]);
+        
+        setRoutesData(routes);
+        setPopularRoutesData(popular);
+        setReviewsData(reviews);
+        setFeaturesData(features);
+        setDestinationsData(destinations);
+        setWhyChooseUsData(whyChooseUs);
+        setChatFAQsData(chatFAQs);
+      } catch (error) {
+        console.error("Error loading data:", error);
+        setError("Failed to load data. Please refresh the page.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadData();
   }, []);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
     if (!searchParams.origin || !searchParams.destination) {
       setError("Please fill in origin and destination");
       return;
     }
-    fetchRoutes();
+    
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const results = await searchRoutes(
+        searchParams.origin,
+        searchParams.destination,
+        searchParams.departureDate
+      );
+      
+      setSearchResults(results);
+    } catch (error) {
+      console.error("Search error:", error);
+      setError("Failed to search routes. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleBookNow = async (routeId) => {
+    try {
+      const bookingData = {
+        routeId,
+        passengers: searchParams.passengers,
+        departureDate: searchParams.departureDate,
+        returnDate: searchParams.returnDate || null,
+        userId: "guest", // Replace with actual user ID when auth is implemented
+        totalPrice: searchResults.find(r => r.id === routeId)?.price * searchParams.passengers
+      };
+      
+      const { id, reference } = await createBooking(bookingData);
+      alert(`Booking confirmed! Reference: ${reference}`);
+    } catch (error) {
+      console.error("Booking error:", error);
+      setError("Booking failed. Please try again.");
+    }
   };
 
   const SkeletonRoute = () => (
@@ -106,31 +159,6 @@ export default function Home() {
       <div className="h-4 bg-gray-200 rounded w-1/4"></div>
     </div>
   );
-
-  const handleBookNow = async (routeId) => {
-    try {
-      const response = await fetch(`/api/book-route/${routeId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          passengers: searchParams.passengers,
-          date: searchParams.departureDate,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Booking failed");
-      }
-
-      const bookingData = await response.json();
-      alert(`Booking confirmed! Reference: ${bookingData.reference}`);
-    } catch (error) {
-      console.error("Booking error:", error);
-      setError(error.message);
-    }
-  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -319,7 +347,7 @@ export default function Home() {
           Why Choose BusGo
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {whyChooseUs.map((item, index) => (
+          {whyChooseUsData.map((item, index) => (
             <div key={index} className="bg-gradient-to-br from-[#4F46E5] to-[#10B981] p-8 rounded-xl shadow-xl text-center text-white transform hover:scale-105 transition-all duration-300">
               <div className="flex justify-center mb-6">
                 <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center">
@@ -361,7 +389,7 @@ export default function Home() {
       <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-8 mt-8">
         {activeTab === 0 && (
           <div className="grid grid-cols-2 gap-6">
-            {popularRoutes.map((route, index) => (
+            {popularRoutesData.map((route, index) => (
               <div key={index} className="p-4 border-b">
                 <h4 className="font-semibold">{route.route}</h4>
                 <p className="text-sm text-gray-600">{route.price} • {route.departures}</p>
@@ -372,7 +400,7 @@ export default function Home() {
         
         {activeTab === 1 && (
           <div className="space-y-6">
-            {reviews.map((review, index) => (
+            {reviewsData.map((review, index) => (
               <div key={index} className="bg-blue-50 p-4 rounded-lg">
                 <div className="flex items-center mb-2">
                   <div className="flex text-yellow-400">
@@ -388,7 +416,7 @@ export default function Home() {
 
         {activeTab === 2 && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            {features.map((feature) => (
+            {featuresData.map((feature) => (
               <div key={feature.title} className="p-6 hover:bg-blue-50 rounded-lg transition-colors">
                 <div className="flex justify-center">
                   <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
@@ -408,7 +436,7 @@ export default function Home() {
           Popular Destinations
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {destinations.map((dest, index) => (
+          {destinationsData.map((dest, index) => (
             <div key={index} className="relative group overflow-hidden rounded-lg h-64">
               <div 
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
@@ -437,7 +465,7 @@ export default function Home() {
             <div className="space-y-4">
               <h3 className="font-semibold text-lg">Help Center</h3>
               <div className="space-y-2">
-                {chatFAQs.map((faq, index) => (
+                {chatFAQsData.map((faq, index) => (
                   <div key={index} className="p-2 hover:bg-gray-50 rounded cursor-pointer">
                     {faq}
                   </div>

@@ -1,0 +1,22 @@
+[debug] [2025-03-02T22:09:22.794Z] ----------------------------------------------------------------------
+[debug] [2025-03-02T22:09:22.798Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js apps:sdkconfig web busgo-web-app --project busgo-app
+[debug] [2025-03-02T22:09:22.799Z] CLI Version:   13.32.0
+[debug] [2025-03-02T22:09:22.799Z] Platform:      win32
+[debug] [2025-03-02T22:09:22.799Z] Node Version:  v23.6.1
+[debug] [2025-03-02T22:09:22.799Z] Time:          Mon Mar 03 2025 00:09:22 GMT+0200 (South Africa Standard Time)
+[debug] [2025-03-02T22:09:22.799Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-03-02T22:09:23.004Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-02T22:09:23.005Z] > authorizing via signed-in user (thulanizondo42@gmail.com)
+[debug] [2025-03-02T22:09:23.009Z] Checked if tokens are valid: true, expires at: 1740956042572
+[debug] [2025-03-02T22:09:23.009Z] Checked if tokens are valid: true, expires at: 1740956042572
+[debug] [2025-03-02T22:09:23.010Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/busgo-web-app/config [none]
+[debug] [2025-03-02T22:09:23.677Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/busgo-web-app/config 400
+[debug] [2025-03-02T22:09:23.677Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/busgo-web-app/config {"error":{"code":400,"message":"Request contains an invalid argument.","status":"INVALID_ARGUMENT"}}
+[debug] [2025-03-02T22:09:23.679Z] Request to https://firebase.googleapis.com/v1beta1/projects/-/webApps/busgo-web-app/config had HTTP Error: 400, Request contains an invalid argument.
+[debug] [2025-03-02T22:09:24.085Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/-/webApps/busgo-web-app/config had HTTP Error: 400, Request contains an invalid argument.
+    at responseToError (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:52:12)
+    at RetryOperation._fn (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:312:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to get WEB app configuration. See firebase-debug.log for more info.

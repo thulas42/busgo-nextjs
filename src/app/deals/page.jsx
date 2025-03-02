@@ -1,4 +1,49 @@
+"use client";
+import { useState, useEffect } from 'react';
+import { getAllDeals } from '../../services/dealService';
+
 export default function Deals() {
+  const [deals, setDeals] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchDeals = async () => {
+      try {
+        setLoading(true);
+        const dealsData = await getAllDeals();
+        setDeals(dealsData);
+      } catch (err) {
+        console.error('Error fetching deals:', err);
+        setError('Failed to load special deals. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDeals();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-500 p-8">
+        <div className="max-w-7xl mx-auto bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-8 text-center">
+          <p className="text-xl">Loading special deals...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-500 p-8">
+        <div className="max-w-7xl mx-auto bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-8 text-center">
+          <p className="text-xl text-red-600">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-500 p-8">
       <div className="max-w-7xl mx-auto bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-8">
@@ -6,45 +51,8 @@ export default function Deals() {
         <p className="mb-8">Take advantage of our limited-time offers and save on your next journey!</p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[
-            {
-              title: "Early Bird Special",
-              discount: "25% OFF",
-              description: "Book at least 14 days in advance and save 25% on your ticket",
-              code: "EARLY25"
-            },
-            {
-              title: "Weekend Getaway",
-              discount: "20% OFF",
-              description: "Travel on weekends and enjoy 20% discount on round trips",
-              code: "WEEKEND20"
-            },
-            {
-              title: "Group Travel",
-              discount: "30% OFF",
-              description: "Groups of 4 or more get 30% off when booking together",
-              code: "GROUP30"
-            },
-            {
-              title: "Student Discount",
-              discount: "15% OFF",
-              description: "Valid student ID gets you 15% off on any route",
-              code: "STUDENT15"
-            },
-            {
-              title: "Senior Citizen",
-              discount: "20% OFF",
-              description: "Travelers over 65 years enjoy 20% discount",
-              code: "SENIOR20"
-            },
-            {
-              title: "Last Minute",
-              discount: "10% OFF",
-              description: "Book within 24 hours of departure for 10% savings",
-              code: "LAST10"
-            }
-          ].map((deal, index) => (
-            <div key={index} className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+          {deals.map((deal, index) => (
+            <div key={index} className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
               <div className="bg-blue-600 text-white p-4">
                 <h2 className="text-xl font-bold">{deal.title}</h2>
                 <p className="text-2xl font-bold mt-2">{deal.discount}</p>
