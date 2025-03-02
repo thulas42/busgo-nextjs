@@ -1,69 +1,69 @@
 export const reviews = [
   {
-    author: "Sarah Johnson",
+    author: "Thabo Mbeki",
     rating: 5,
-    text: "Best bus service I've ever used! Comfortable seats and punctual departures."
+    text: "Best bus service in South Africa! Comfortable seats and punctual departures on my trip from Joburg to Cape Town."
   },
   {
-    author: "Mike Chen",
+    author: "Lerato Khumalo",
     rating: 4,
-    text: "Great value for money. WiFi could be better but overall excellent experience."
+    text: "Great value for money. WiFi could be better but overall excellent experience on the Durban route."
   },
   {
-    author: "David Wilson",
+    author: "David van der Merwe",
     rating: 5,
-    text: "The online booking process was seamless and the journey was very comfortable."
+    text: "The online booking process was seamless and the journey from Pretoria to Polokwane was very comfortable."
   }
 ];
 
 export const features = [
-  { icon: 'fa-shield-alt', title: 'Safe Travel', text: '24/7 journey monitoring' },
-  { icon: 'fa-ticket-alt', title: 'E-Tickets', text: 'Instant mobile tickets' },
-  { icon: 'fa-headset', title: 'Support', text: 'Dedicated customer service' }
+  { icon: 'fa-shield-alt', title: 'Safe Travel', text: '24/7 journey monitoring across SA' },
+  { icon: 'fa-ticket-alt', title: 'E-Tickets', text: 'Instant mobile tickets via WhatsApp' },
+  { icon: 'fa-headset', title: 'Support', text: 'Local customer service in 11 languages' }
 ];
 
 export const destinations = [
   {
-    city: "New York to Boston",
-    price: "From $29",
-    image: "https://images.unsplash.com/photo-1543716091-a840c05249ec",
-    duration: "4h"
+    city: "Johannesburg to Cape Town",
+    price: "From R850",
+    image: "https://images.unsplash.com/photo-1564661586858-70795d2cc30b",
+    duration: "18h"
   },
   {
-    city: "Los Angeles to San Francisco",
-    price: "From $49",
-    image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29",
+    city: "Durban to Johannesburg",
+    price: "From R400",
+    image: "https://images.unsplash.com/photo-1578319439584-104c94d37305",
     duration: "6h"
   },
   {
-    city: "Chicago to Detroit",
-    price: "From $39",
-    image: "https://images.unsplash.com/photo-1513642691452-48d816b48c9b",
-    duration: "5h"
+    city: "Cape Town to Garden Route",
+    price: "From R550",
+    image: "https://images.unsplash.com/photo-1576485375217-d6a95e34d043",
+    duration: "7h"
   }
 ];
 
 export const whyChooseUs = [
   {
     icon: "fa-globe",
-    title: "Join 75M+ travelers",
-    description: "Booking across 85+ countries"
+    title: "Serving 5M+ travelers",
+    description: "Routes across all 9 provinces"
   },
   {
     icon: "fa-headset",
-    title: "24/7 customer service",
-    description: "We're here to assist you"
+    title: "Local customer service",
+    description: "Support in all official languages"
   },
   {
     icon: "fa-undo",
-    title: "Cancel anytime",
-    description: "100% refund guaranteed"
+    title: "Flexible bookings",
+    description: "Free changes up to 24h before"
   }
 ];
 
 export const chatFAQs = [
-  "How to change booking?",
-  "Cancellation policy",
-  "Baggage allowance",
-  "Student discounts"
+  "How to change my booking?",
+  "Luggage allowance on Intercape",
+  "Student discounts with valid ID",
+  "Cape Town to Durban route info"
 ]; 

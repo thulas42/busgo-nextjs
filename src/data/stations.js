@@ -1,39 +1,39 @@
 export const stations = [
   {
-    name: "New York Central Bus Terminal",
-    address: "625 8th Avenue, New York, NY 10018",
+    name: "Johannesburg Park Station",
+    address: "Rissik Street, Johannesburg, 2000",
     facilities: ["Waiting Area", "Restrooms", "Food Court", "Luggage Storage", "Wi-Fi"],
     hours: "24/7"
   },
   {
-    name: "Boston South Station",
-    address: "700 Atlantic Ave, Boston, MA 02110",
+    name: "Cape Town Station",
+    address: "Adderley Street, Cape Town, 8001",
     facilities: ["Waiting Area", "Restrooms", "Cafes", "ATM", "Wi-Fi"],
-    hours: "5:00 AM - 1:00 AM"
+    hours: "5:00 AM - 11:00 PM"
   },
   {
-    name: "Los Angeles Bus Center",
-    address: "1716 E 7th St, Los Angeles, CA 90021",
+    name: "Durban Station",
+    address: "65 Masabalala Yengwa Ave, Durban, 4001",
     facilities: ["Waiting Area", "Restrooms", "Vending Machines", "Wi-Fi"],
-    hours: "6:00 AM - 11:00 PM"
+    hours: "6:00 AM - 10:00 PM"
   },
   {
-    name: "Chicago Bus Depot",
-    address: "630 W Harrison St, Chicago, IL 60607",
+    name: "Pretoria Station",
+    address: "Bosman Street, Pretoria Central, 0002",
     facilities: ["Waiting Area", "Restrooms", "Food Court", "Luggage Storage", "Wi-Fi"],
     hours: "24/7"
   },
   {
-    name: "Miami Central Station",
-    address: "3801 NW 21st St, Miami, FL 33142",
+    name: "Bloemfontein Station",
+    address: "Harvey Road, Bloemfontein, 9301",
     facilities: ["Waiting Area", "Restrooms", "Cafes", "ATM", "Wi-Fi"],
-    hours: "5:30 AM - 12:00 AM"
+    hours: "5:30 AM - 9:00 PM"
   },
   {
-    name: "Seattle Bus Terminal",
-    address: "503 S Royal Brougham Way, Seattle, WA 98134",
+    name: "Port Elizabeth Station",
+    address: "Flemming Street, Gqeberha, 6001",
     facilities: ["Waiting Area", "Restrooms", "Vending Machines", "Wi-Fi"],
-    hours: "6:00 AM - 11:30 PM"
+    hours: "6:00 AM - 9:30 PM"
   }
 ];
 

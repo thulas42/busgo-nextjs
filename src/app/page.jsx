@@ -314,18 +314,23 @@ export default function Home() {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-        {whyChooseUs.map((item, index) => (
-          <div key={index} className="bg-gradient-to-br from-[#4F46E5] to-[#10B981] p-8 rounded-xl shadow-xl text-center text-white transform hover:scale-105 transition-all duration-300">
-            <div className="flex justify-center mb-6">
-              <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center">
-                <i className={`fas ${item.icon} text-3xl animate-float`}></i>
+      <div className="my-12">
+        <h2 className="text-3xl font-bold text-[#4F46E5] mb-8 text-center">
+          Why Choose BusGo
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {whyChooseUs.map((item, index) => (
+            <div key={index} className="bg-gradient-to-br from-[#4F46E5] to-[#10B981] p-8 rounded-xl shadow-xl text-center text-white transform hover:scale-105 transition-all duration-300">
+              <div className="flex justify-center mb-6">
+                <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center">
+                  <i className={`fas ${item.icon} text-3xl text-white animate-float`}></i>
+                </div>
               </div>
+              <h3 className="text-2xl font-semibold mb-3">{item.title}</h3>
+              <p className="text-white/90">{item.description}</p>
             </div>
-            <h3 className="text-2xl font-semibold mb-3">{item.title}</h3>
-            <p className="text-white/90">{item.description}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-8 mt-12">
