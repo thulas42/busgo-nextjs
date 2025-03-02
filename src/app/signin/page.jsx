@@ -15,7 +15,7 @@ export default function SignIn() {
   };
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center p-4">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex items-center justify-center">
       <div className="max-w-md w-full bg-white/90 backdrop-blur-sm rounded-xl shadow-xl p-8">
         <div className="text-center mb-8">
           <Link href="/" className="text-3xl font-bold text-[#4F46E5] inline-block">
