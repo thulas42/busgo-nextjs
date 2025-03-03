@@ -1,36 +1,63 @@
-# BusGo - Modern Bus Booking Platform
+# BusGo - Bus Booking Platform
 
-BusGo is a modern, user-friendly bus booking platform built with Next.js and Firebase. This application provides a seamless experience for users to book bus tickets, explore routes, find station information, and access travel deals.
+![BusGo Logo](public/busgo-logo.png)
 
-## Features
+BusGo is a modern bus booking platform built with Next.js and Firebase, designed to provide a seamless experience for booking bus tickets across South Africa.
 
-- **User Authentication**: Secure login and registration system using Firebase Authentication
-- **Route Exploration**: Browse popular routes and schedules
-- **Station Information**: View detailed information about bus stations and amenities
-- **Special Deals**: Access exclusive discounts and promotional offers
-- **Travel Information**: Helpful guides and FAQs for travelers
-- **Responsive Design**: Optimized for all devices from mobile to desktop
+## 🚀 Live Demo
 
-## Tech Stack
+Check out the live demo: [BusGo App](https://busgo-nextjs.vercel.app/)
+
+## ✨ Features
+
+- **Location Autocomplete**: Search for South African cities with a custom-built autocomplete component
+- **Route Search**: Find bus routes between cities with flexible date options
+- **Responsive Design**: Fully responsive UI that works on mobile, tablet, and desktop
+- **Interactive UI**: Modern, user-friendly interface with animations and transitions
+- **Travel Information**: Comprehensive travel guides and FAQs
+- **Station Information**: Details about bus stations and their amenities
+- **Special Deals**: Promotional offers and discounts
+- **Mock Data**: Simulated backend with realistic data for demonstration purposes
+
+## 🛠️ Technologies Used
 
 - **Frontend**: Next.js 14, React 18, Tailwind CSS
-- **Backend**: Firebase (Authentication, Firestore, Storage)
-- **Deployment**: Vercel (recommended)
+- **Backend**: Firebase (Firestore, Authentication)
+- **Deployment**: Vercel
+- **State Management**: React Hooks
+- **Styling**: Tailwind CSS with custom animations
+- **Icons**: Font Awesome
 
-## Getting Started
+## 📋 Project Structure
+
+```
+busgo-nextjs/
+├── public/             # Static assets
+├── src/
+│   ├── app/            # Next.js app router pages
+│   ├── components/     # Reusable React components
+│   ├── contexts/       # React context providers
+│   ├── data/           # Mock data for development
+│   ├── lib/            # Utility libraries (Firebase, etc.)
+│   └── services/       # API service functions
+├── scripts/            # Build and deployment scripts
+├── .env.local          # Environment variables (example)
+└── README.md           # Project documentation
+```
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
 - Node.js 18.17.0 or later
 - npm or yarn
-- Firebase account
 
 ### Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/busgo.git
-   cd busgo
+   git clone https://github.com/yourusername/busgo-nextjs.git
+   cd busgo-nextjs
    ```
 
 2. Install dependencies:
@@ -42,113 +69,75 @@ BusGo is a modern, user-friendly bus booking platform built with Next.js and Fir
 
 3. Create a `.env.local` file in the root directory with your Firebase configuration:
    ```
-   NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
-   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
-   NEXT_PUBLIC_FIREBASE_DATABASE_URL=https://your-project.firebaseio.com
-   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
-   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
-   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
-   NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
+   NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+   NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
    ```
 
-4. Seed the database with initial data:
-   ```bash
-   npm run seed
-   # or
-   yarn seed
+   Alternatively, for development without Firebase:
+   ```
+   NEXT_PUBLIC_USE_MOCK_DATA=true
    ```
 
-5. Start the development server:
+4. Start the development server:
    ```bash
    npm run dev
    # or
    yarn dev
    ```
 
-6. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Project Structure
+## 🌐 Deployment
 
-```
-busgo/
-├── public/            # Static assets
-├── scripts/           # Utility scripts (including database seeding)
-├── src/
-│   ├── app/           # Next.js app router pages
-│   ├── components/    # Reusable React components
-│   ├── data/          # Static data and sample content
-│   ├── lib/           # Utility functions and Firebase setup
-│   └── services/      # Firebase service functions for data operations
-├── .env.local         # Environment variables (not in repo)
-├── next.config.mjs    # Next.js configuration
-└── tailwind.config.js # Tailwind CSS configuration
-```
+The project is configured for easy deployment on Vercel:
 
-## Firebase Setup
+1. Push your code to GitHub
+2. Import the project in Vercel
+3. Set the environment variables
+4. Deploy!
 
-1. Create a new Firebase project at [https://console.firebase.google.com/](https://console.firebase.google.com/)
-2. Enable Authentication (Email/Password method)
-3. Create a Firestore database
-4. Set up appropriate security rules for Firestore
-5. Add a web app to your Firebase project and copy the configuration
-6. Update your `.env.local` file with the Firebase configuration
+## 📱 Mobile Responsiveness
 
-## Firebase Services
+BusGo is designed to work seamlessly across all device sizes:
 
-The application uses several Firebase services:
+- **Mobile**: Optimized layout with hamburger menu
+- **Tablet**: Adjusted grid layouts for medium screens
+- **Desktop**: Full-featured experience with enhanced visuals
 
-- **Authentication**: For user sign-up, sign-in, and account management
-- **Firestore**: For storing and retrieving data like:
-  - Routes and schedules
-  - Station information and amenities
-  - Special deals and promotions
-  - Travel information and FAQs
-  - User bookings and preferences
-- **Storage**: For storing images and other media files
+## 🧪 Testing
 
-## Data Seeding
-
-The project includes a seed script to populate your Firebase database with initial data:
+Run the test suite with:
 
 ```bash
-npm run seed
+npm test
+# or
+yarn test
 ```
 
-This script will:
-1. Clear existing data from all collections
-2. Seed the database with sample routes, stations, deals, and other information
-3. Set up the necessary structure for your application to function properly
-
-## Pages
-
-- **Home**: Landing page with featured routes and promotions
-- **Schedule**: Browse bus schedules and popular routes
-- **Stations**: View information about bus stations and amenities
-- **Deals**: Explore special discounts and promotional offers
-- **Travel Info**: Access helpful guides and FAQs for travelers
-- **Help**: Get assistance and support information
-- **Sign In/Sign Up**: User authentication pages
-
-## Deployment
-
-This application is deployed on Vercel and can be accessed at [https://busgo.vercel.app](https://busgo.vercel.app) (replace with your actual URL).
-
-The deployment process uses Vercel's continuous integration:
-- Main branch is automatically deployed to production
-- Pull requests generate preview deployments
-- Environment variables are securely managed in the Vercel dashboard
-
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
+## 📝 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Acknowledgements
+## 🙏 Acknowledgements
 
 - [Next.js](https://nextjs.org/)
-- [React](https://reactjs.org/)
 - [Firebase](https://firebase.google.com/)
 - [Tailwind CSS](https://tailwindcss.com/)
+- [Font Awesome](https://fontawesome.com/)
+- [Vercel](https://vercel.com/)
+
+## 📞 Contact
+
+For any questions or feedback, please reach out to [your-email@example.com](mailto:your-email@example.com).
+
+---
+
+Built with ❤️ by [Your Name](https://github.com/yourusername)
