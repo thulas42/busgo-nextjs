@@ -62,7 +62,7 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-        </div>
+        </div>  
         
         <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
           <p>© {new Date().getFullYear()} Your Name. This project is for demonstration purposes only.</p>

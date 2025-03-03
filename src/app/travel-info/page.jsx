@@ -42,14 +42,32 @@ export default function TravelInfo() {
             {info.title}
           </h2>
         </div>
-        <ul className="space-y-3">
-          {info.items.map((item, index) => (
-            <li key={index} className="flex items-start">
-              <i className="fas fa-check text-green-500 mt-1 mr-2"></i>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+        
+        {info.items ? (
+          <ul className="space-y-3">
+            {info.items.map((item, index) => (
+              <li key={index} className="flex items-start">
+                <i className="fas fa-check text-green-500 mt-1 mr-2"></i>
+                <span>
+                  {typeof item === 'string' 
+                    ? item 
+                    : item.text ? item.text : JSON.stringify(item)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : info.content ? (
+          typeof info.content === 'string' ? (
+            <p>{info.content}</p>
+          ) : (
+            <div className="flex items-start">
+              {info.content.icon && (
+                <i className={`fas ${info.content.icon} text-blue-500 mt-1 mr-2`}></i>
+              )}
+              <p>{info.content.text}</p>
+            </div>
+          )
+        ) : null}
       </div>
     );
   };

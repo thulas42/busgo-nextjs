@@ -346,11 +346,9 @@ export default function Home() {
       )}
 
       <div className="my-12">
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 py-3 rounded-lg mb-8">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center border-b-2 border-white/30 pb-2 inline-block mx-auto">
-            Why Choose BusGo
-          </h2>
-        </div>
+        <h2 className="text-3xl font-bold text-white mb-8 text-center drop-shadow-lg">
+          Why Choose BusGo
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {whyChooseUsData.map((item, index) => (
             <div key={index} className="bg-gradient-to-br from-[#4F46E5] to-[#10B981] p-8 rounded-xl shadow-xl text-center text-white transform hover:scale-105 transition-all duration-300">
