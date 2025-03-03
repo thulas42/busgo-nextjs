@@ -1,9 +1,10 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { searchRoutes } from '../../services/routeService';
 
-export default function SearchResults() {
+// Create a component that uses useSearchParams
+function SearchResultsContent() {
   const searchParams = useSearchParams();
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,7 +55,7 @@ export default function SearchResults() {
             <span className="font-semibold">To:</span> {to}
           </div>
           <div>
-            <span className="font-semibold">Date:</span> {new Date(date).toLocaleDateString()}
+            <span className="font-semibold">Date:</span> {date ? new Date(date).toLocaleDateString() : ''}
           </div>
           {returnDate && (
             <div>
@@ -112,5 +113,27 @@ export default function SearchResults() {
         </div>
       )}
     </div>
+  );
+}
+
+// Loading fallback component
+function SearchResultsLoading() {
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6">Search Results</h1>
+      <div className="flex items-center justify-center py-20">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <p className="ml-4 text-lg text-gray-600">Loading search results...</p>
+      </div>
+    </div>
+  );
+}
+
+// Main component with Suspense boundary
+export default function SearchResults() {
+  return (
+    <Suspense fallback={<SearchResultsLoading />}>
+      <SearchResultsContent />
+    </Suspense>
   );
 } 
